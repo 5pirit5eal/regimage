@@ -10,4 +10,4 @@ Repository with a image registration algorithm implemented in c++.
         3. Add the path to the unpacked folder to the PATH system variable
 
 ## Compiling code:
-g++ file.cpp -o file -pedantic-errors
+g++ file.cpp -o file -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror -std=c++20
