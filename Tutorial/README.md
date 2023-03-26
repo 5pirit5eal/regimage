@@ -8,10 +8,11 @@ This page summarizes all key insights from the lectures
         1. Download a MingW-W64-builds compiler from their GitHub
         2. Unpack the built 7z file at C:\ using "extract here"
         3. Add the path to the unpacked folder to the PATH system variable
-3. Set the coding style to Google C++ (Extension config in VSCode)
+3. Set the coding style to Google C++ (Extension config in VSCode) using .clang-format
+https://zed0.co.uk/clang-format-configurator/
 
 ## Compiling code:
-g++ file.cpp -o file -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror -std=c++20
+`g++ full_path_to_file.cpp -o file.exe -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror -std=c++20`
 
 # Rules
 1. Every c++ programm needs a main function or it will fail to link to other programms
@@ -47,10 +48,10 @@ An exception is made for symbolic constants
     - If a header file is paired with a code file (e.g. add.h with add.cpp), they should both have the same base name (add).
     - Source files should #include their paired header file (if one exists).
     - Each file should explicitly #include all of the header files it needs to compile. Do not rely on headers included transitively from other headers.
-    - To minimize errors structure includes by the following order:
-        1. The paired header file
-        2. Other heaers from your project
-        3. 3rd party library headers
-        4. standard library headers
+    - To minimize errors, structure includes by the following order:
+        1. standard library headers
+        2. 3rd party library headers
+        3. Other heaers from your project
+        4. The paired header file
     
 
