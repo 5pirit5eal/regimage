@@ -12,19 +12,34 @@ This page summarizes all key insights from the lectures
 https://zed0.co.uk/clang-format-configurator/
 
 ## Compiling code:
-`g++ full_path_to_file.cpp -o file.exe -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror -std=c++20`
+Typical compilation command for a single file:
+
+`g++ full_path_to_file.cpp -o file -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror -std=c++20`
+
+Typical compilation command for multiple files:
+
+`g++ full_path_to_files/*.cpp -o name_of_programm -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror -std=c++20`
+
+
+When including header files from other directories:
+
+`g++ -I/source/includes main.cpp -o file -pedantic-errors -Wall -Weffc++ -Wextra -Wsign-conversion -Werror -std=c++20`
+
+or in your tasks.json configuration file, add a new line in the “Args” section:
+`"-I/source/includes",`
 
 # Rules
 1. Every c++ programm needs a main function or it will fail to link to other programms
 2. Take care to avoid all situations that result in undefined behavior, such as using uninitialized variables.
 3. Values calculated in an expression are discarded at the end of the expression (2+3=5, 5 is discarded)
 4. Nested functions are not possible in c++
-5. Use double quotes to include header files that you’ve written or are expected to be found in the current directory. Use angled brackets to include headers that come with your compiler, OS, or third-party libraries you’ve installed elsewhere on your system.
+5. Use double quotes (`#include "add.h"`) to include header files that you’ve written or are expected to be found in the current directory. Use angled brackets to include headers that come with your compiler, OS, or third-party libraries you’ve installed elsewhere on your system (`#include <iostream>`).
+6. 
 
 # Best Practices
 1. Variables
     - Intialize your variables upon creation 
-    - using direct initialization with {} if possible (e.g. int x{5};)
+    - using direct initialization with {} if possible (e.g. `int x{5};`)
     - Each variable by itself even if they share types and values (with descriptive comment)
     - identifier in lower case
     - Define your local variables as close to their first use as reasonable
@@ -33,7 +48,7 @@ https://zed0.co.uk/clang-format-configurator/
 3. Prefer '\n' over std::endl when outputting text to the console
 4. Naming:
     - functions and variabales in lower case, separated by _ (snake_case)
-    - classes, structs and enumerations with _a_ capital letter, separated by upper case (e.g YourClass)
+    - classes, structs and enumerations with _a_ capital letter, separated by upper case (e.g `YourClass`)
     - When defining function prototypes, keep the parameter names. You can easily create forward declarations 
 by copy/pasting your function’s prototype and adding a semicolon.
     - Use explicit namespace prefixes to access identifiers defined in a namespace.
@@ -53,5 +68,8 @@ An exception is made for symbolic constants
         2. 3rd party library headers
         3. Other heaers from your project
         4. The paired header file
+    - When including a header file from the standard library, use the version without the .h extension if it exists. User-defined headers should still use a .h extension.
+    - Each file should explicitly `#include` all of the header files it needs to compile.
+    - A header guard is the name of the header file in all caps (add.h --> `#define ADD_H`)
     
 
