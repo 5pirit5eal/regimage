@@ -1,3 +1,6 @@
+#include <plog/Initializers/RollingFileInitializer.h>
+#include <plog/Log.h>  // Step 1: include the logger headers
+
 #include <iostream>
 
 #include "add.h"
