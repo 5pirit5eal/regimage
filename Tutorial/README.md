@@ -72,4 +72,21 @@ An exception is made for symbolic constants
     - Each file should explicitly `#include` all of the header files it needs to compile.
     - A header guard is the name of the header file in all caps (add.h --> `#define ADD_H`)
     
+# Data Types
 
+|  Data Type  |            Description            |                   Typical Bit Width                  |                                                         Typical Range                                                        |
+|:-----------:|:---------------------------------:|:----------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------:|
+| bool        | Boolean value                     | 1 bit                                                | true or false                                                                                                                |
+| char        | Character or small integer        | 8 bits                                               | -128 to 127 or 0 to 255                                                                                                      |
+| short       | Short integer                     | 16 bits                                              | -32,768 to 32,767                                                                                                            |
+| int         | Integer                           | 32 bits                                              | -2,147,483,648 to 2,147,483,647                                                                                              |
+| long        | Long integer                      | 32 bits on 32-bit systems, 64 bits on 64-bit systems | -2,147,483,648 to 2,147,483,647 on 32-bit systems, -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 on 64-bit systems |
+| long long   | Long long integer                 | 64 bits                                              | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807                                                                      |
+| float       | Single-precision floating point   | 32 bits                                              | Approximately 1.2E-38 to 3.4E+38                                                                                             |
+| double      | Double-precision floating point   | 64 bits                                              | Approximately 2.3E-308 to 1.8E+308                                                                                           |
+| long double | Extended-precision floating point | 80 bits on most systems, 128 bits on some systems    | Approximately 3.4E-4932 to 1.1E+4932                                                                                         |
+| wchar_t     | Wide character                    | 16 bits or 32 bits                                   | 0 to 65,535 or 0 to 4,294,967,295                                                                                            |
+| char16_t    | 16-bit Unicode character          | 16 bits                                              | 0 to 65,535                                                                                                                  |
+| char32_t    | 32-bit Unicode character          | 32 bits                                              | 0 to 4,294,967,295                                                                                                           |
+| void        | Represents the absence of type    | N/A                                                  | N/A                                                                                                                          |
+| nullptr     | Null pointer                      | N/A                                                  | N/A                                                                                                                          |
