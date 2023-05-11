@@ -43,21 +43,35 @@ or in your tasks.json configuration file, add a new line in the “Args” secti
     - Each variable by itself even if they share types and values (with descriptive comment)
     - identifier in lower case
     - Define your local variables as close to their first use as reasonable
-    - 
-2. Output a newline whenever a line of output is complete
-3. Prefer '\n' over std::endl when outputting text to the console
+    - For maximum compatibility, you shouldn’t assume that variables are larger than the specified minimum size (see data types table).
+    - You can make integer unsigned by using `unsigned [your type]`, but should be avoided mixing with signed and used for holding quantaties or mathematical operations
+    - Prefer `int` when the size of the integer doesn’t matter (e.g. the number will always fit within the range of a 2-byte signed integer). For example, if you’re asking the user to enter their age, or counting from 1 to 10, it doesn’t matter whether int is 16 or 32 bits (the numbers will fit either way). This will cover the vast majority of the cases you’re likely to run across.
+    - Prefer `std::int#_t` when storing a quantity that needs a guaranteed range.
+    - Prefer `std::uint#_t` when doing bit manipulation or where well-defined wrap-around behavior is required.
+    - The type of your literals should match the type of the variables they’re being assigned to or used to initialize.
+    - Put stand-alone chars in single quotes (e.g. `'t'` or `'\n'`, not `"t"` or `"\n"`). Do not use mulit-character literals e.g. `'42'`
+    - Any variable that should not be modifiable after initialization and whose initializer is known at compile-time should be declared as constexpr.
+    - Any variable that should not be modifiable after initialization and whose initializer is not known at compile-time should be declared as const.
+    - Prefer std::string_view over std::string when you need a read-only string, especially for function parameters.
+2. Logging
+    - Output a newline whenever a line of output is complete
+    - Prefer '\n' over std::endl when outputting text to the console
+3. Functions:
+    - Use an empty parameter list instead of void to indicate that a function has no parameters.
+    - Do not put a return statement at the end of a non-value returning function.
+    - _DRY_: dont repeat yourself, if you need to do something more than once, rewrite/create function and remove redundancies
+    - Your main function should return the value 0 if the program ran normally, or use EXIT_SUCCESS or EXIT_FAILURE from cstdlib
+    - Function main will implicitly return 0 if no return statement is provided
+    - Don’t use `const` when returning by value.
 4. Naming:
     - functions and variabales in lower case, separated by _ (snake_case)
     - classes, structs and enumerations with _a_ capital letter, separated by upper case (e.g `YourClass`)
-    - When defining function prototypes, keep the parameter names. You can easily create forward declarations 
+    - When defining function prototypes, keep the parameter names. You can easily create forward declarations
+    - Place `const` before its type when defining a constant.
 by copy/pasting your function’s prototype and adding a semicolon.
     - Use explicit namespace prefixes to access identifiers defined in a namespace.
 5. Your lines should be no longer than 80 chars in length
-6. Your main function should return the value 0 if the program ran normally, or use EXIT_SUCCESS or EXIT_FAILURE from cstdlib
-    - Function main will implicitly return 0 if no return statement is provided
-7. _DRY_: dont repeat yourself, if you need to do something more than once, rewrite/create function and remove redundancies
-8. Do not put a return statement at the end of a non-value returning function.
-9. Header files:
+6. Header files:
     - Header files should generally not contain function and variable definitions, so as not to violate the one definition rule.
 An exception is made for symbolic constants
     - If a header file is paired with a code file (e.g. add.h with add.cpp), they should both have the same base name (add).
@@ -71,6 +85,9 @@ An exception is made for symbolic constants
     - When including a header file from the standard library, use the version without the .h extension if it exists. User-defined headers should still use a .h extension.
     - Each file should explicitly `#include` all of the header files it needs to compile.
     - A header guard is the name of the header file in all caps (add.h --> `#define ADD_H`)
+7. Operators:
+    - Always parenthesize the conditional part of the conditional operator ?, and consider parenthesizing the whole thing as well (e.g. `std::cout << ((x > y) ? x : y) << '\n'`).
+    - Avoid == or != comparisons on floating point as it is unprecise. Instead use an epsilon (e.g. `std::abs(a-b) > epsilon`)
     
 # Data Types
 
@@ -90,3 +107,22 @@ An exception is made for symbolic constants
 | char32_t    | 32-bit Unicode character          | 32 bits                                              | 0 to 4,294,967,295                                                                                                           |
 | void        | Represents the absence of type    | N/A                                                  | N/A                                                                                                                          |
 | nullptr     | Null pointer                      | N/A                                                  | N/A                                                                                                                          |
+
+## Char Values
+
+|       Name      |    Symbol    |                                        Meaning                                       |
+|:---------------:|:------------:|:------------------------------------------------------------------------------------:|
+| Alert           | \a           | Makes an alert, such as a beep                                                       |
+| Backspace       | \b           | Moves the cursor back one space                                                      |
+| Formfeed        | \f           | Moves the cursor to next logical page                                                |
+| Newline         | \n           | Moves cursor to next line                                                            |
+| Carriage return | \r           | Moves cursor to beginning of line                                                    |
+| Horizontal tab  | \t           | Prints a horizontal tab                                                              |
+| Vertical tab    | \v           | Prints a vertical tab                                                                |
+| Single quote    | \’           | Prints a single quote                                                                |
+| Double quote    | \”           | Prints a double quote                                                                |
+| Backslash       | \\           | Prints a backslash.                                                                  |
+| Question mark   | \?           | Prints a question mark.<br>No longer relevant. You can use question marks unescaped. |
+| Octal number    | \(number)    | Translates into char represented by octal                                            |
+| Hex number      | \x(number)   | Translates into char represented by hex number                                       |
+| nullptr         | Null pointer | N/A                                                                                  |
